@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <p><br><img src="/To-Do-List-Task2/10682505.png" align="left">
+                       &nbsp ToDo List</p>
+            </div>
+        </nav>
+    </header>
+    <div class="main">
+        <img src="/To-Do-List-Task2/scroll-5909323_1920.png" alt="scroll image" height="400" width="380">
+        <div class="content">
+            <div class="container">
+             <div class="todo">
+            <input class="todo_value" placeholder="empty">
+                <input class="todo_checkbox" type="checkbox">
+                 </div>
+                 <div class="todo">
+                <input class="todo_value" placeholder="empty">
+              <input class="todo_checkbox" type="checkbox">
+                </div>
+              <div class="todo">
+                <input class="todo_value" placeholder="empty">
+                <input class="todo_checkbox" type="checkbox">
+             </div>
+             <div class="todo">
+                <input class="todo_value" placeholder="empty">
+            <input class="todo_checkbox" type="checkbox">
+            </div>
+            <div class="todo">
+                <input class="todo_value" placeholder="empty">
+            <input class="todo_checkbox" type="checkbox">
+            </div>
+            <div class="todo">
+                <input class="todo_value" placeholder="empty">
+            <input class="todo_checkbox" type="checkbox">
+            </div>
+            <div class="todo">
+                <input class="todo_value" placeholder="empty">
+            <input class="todo_checkbox" type="checkbox">
+            </div>
+            <div class="todo">
+                <input class="todo_value" placeholder="empty">
+            <input class="todo_checkbox" type="checkbox">
+            </div>
+          </div>
+        </div>
+    </div>
+    
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Select all ToDo checkboxes
+    const checkboxes = document.querySelectorAll('.todo_checkbox');
+
+    // Add event listener to each checkbox
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            // Check if checkbox is checked
+            if (this.checked) {
+                // If checked, add a class to parent div for styling
+                this.parentNode.classList.add('completed');
+            } else {
+                // If unchecked, remove the class
+                this.parentNode.classList.remove('completed');
+            }
+        });
+    });
+
+    // Add event listener to detect Enter key press on input fields
+    const inputFields = document.querySelectorAll('.todo_value');
+    inputFields.forEach(function(inputField) {
+        inputField.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                // Prevent the default behavior of the Enter key
+                event.preventDefault();
+                // Get the value from the input field
+                const taskValue = this.value.trim();
+                // If the value is not empty, add a new ToDo item
+                if (taskValue !== '') {
+                    addNewToDoItem(taskValue);
+                    // Clear the input field after adding the task
+                    this.value = '';
+                }
+            }
+        });
+        inputField.addEventListener('dblclick', function() {
+            // Enable editing of task value on double click
+            this.removeAttribute('disabled');
+        });
+        inputField.addEventListener('blur', function() {
+            // Disable editing of task value on blur
+            this.setAttribute('disabled', 'true');
+        });
+    });
+
+    // Function to add a new ToDo item to the list
+    function addNewToDoItem(taskValue) {
+        // Create a new ToDo item
+        const newToDoItem = document.createElement('div');
+        newToDoItem.classList.add('todo');
+        newToDoItem.innerHTML = `
+            <input class="todo_value" value="${taskValue}" disabled>
+            <input class="todo_checkbox" type="checkbox">
+            <button class="delete_button">Delete</button>
+        `;
+        // Append the new ToDo item to the list
+        const todoList = document.querySelector('.container');
+        todoList.appendChild(newToDoItem);
+
+        // Add event listener to delete button
+        const deleteButton = newToDoItem.querySelector('.delete_button');
+        deleteButton.addEventListener('click', function() {
+            newToDoItem.remove();
+        });
+    }
+});
+
+
+    </script>
+</body>
+</html> 
